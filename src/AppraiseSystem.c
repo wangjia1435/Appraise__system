@@ -55,6 +55,7 @@
  /******************************************************************************
  *    Global Variable Declare Section
  ******************************************************************************/
+UINT32 g_cycleTIme = 0;
 
 /******************************************************************************
  *    Global Prototype Declare Section
@@ -69,16 +70,14 @@
 E_SysBool  ACS_DriveAppraise_InitPro(S_ATO2ACS_INPUTPARA* pA2AInputPara,
 									S_ALL_FEEDBACK_GRADE* pAllFeedBackGrade,
 									S_KERNEL_SENSEDATA* pSenseData,
-									S_AUTOINDICATORSCALCRESULT* pAtIndClcRslt,
-									UINT8 Buffer[][1400])
+									S_AUTOINDICATORSCALCRESULT* pAtIndClcRslt)
 {
 	
 	Comn_F_MemSet((void *)(pA2AInputPara),
 					          0,sizeof(S_ATO2ACS_INPUTPARA));
 	Comn_F_MemSet((void *)(pAllFeedBackGrade),
 					          0,sizeof(S_ALL_FEEDBACK_GRADE));
-	Comn_F_MemSet((void *)Buffer,
-					          0,1400*8*sizeof(UINT8));
+
 	Comn_F_MemSet((void *)pSenseData,
 					          0,sizeof(S_KERNEL_SENSEDATA));
 	Comn_F_MemSet((void *)pAtIndClcRslt,
@@ -286,37 +285,32 @@ E_SysBool  ACS_DriveAppraise_Main(int a)
 	S_ALL_FEEDBACK_GRADE pAllFeedBackGrade;
 	S_KERNEL_SENSEDATA   pSenseData;
 	S_AUTOINDICATORSCALCRESULT pAtIndClcRslt;
-	UINT8 Buffer[8][1400];
+
+	UINT8 buffer[1400];
 	UINT32 rcvLen = 0;
 	UINT32 rcvSocketFd = 0;
-	UINT32 n = 0;
 	struct sockaddr_in myAddr = { 0, };
 	struct sockaddr_in rcvAddr = { 0, };
 	printf("enter appraise system\n");
 
-	if (e_FALSE == Net_SocketInit("192.168.1.8", 5000, &rcvSocketFd, &myAddr))
+	/* socket初始化*/
+	if (e_FALSE == Net_SocketInit("172.20.10.2", 5000, &rcvSocketFd, &myAddr))
 	{
 		return e_FALSE;
 	}
 
 	/*数据初始化*/
-
-
-
-	if(e_FALSE == ACS_DriveAppraise_InitPro(&pA2AInputPara,
-											&pAllFeedBackGrade,
-											&pSenseData,
-											&pAtIndClcRslt,
-											Buffer))
+	if(e_FALSE == ACS_DriveAppraise_InitPro(&pA2AInputPara,&pAllFeedBackGrade,&pSenseData,&pAtIndClcRslt))
 	{
 		return e_FALSE;
 	}
 
 	while(1)
 	{
-		printf("vital_time=%d\n", n++);
+		printf("g_cycle_time=%d\n", g_cycleTIme++);
+		sleep(1);
 		/*数据接收*/
-		if (e_FALSE == Net_SocketRcv(rcvSocketFd, &rcvAddr, Buffer[8], rcvLen))
+		if (e_FALSE == Net_SocketRcv(rcvSocketFd, &rcvAddr, buffer, &rcvLen))
 		//if(e_FALSE == ACS_UDP_RecvData(Buffer))
 		{
 			//return e_FALSE;
@@ -324,7 +318,7 @@ E_SysBool  ACS_DriveAppraise_Main(int a)
 		}
 
 		/*解析ATO发过来的数据*/
-		if(e_FALSE == ACS_Data_ATO2ACS_Analyze(Buffer,&pA2AInputPara))
+		if(e_FALSE == ACS_Data_ATO2ACS_Analyze(Get_RecvPipeBuffer(),&pA2AInputPara))
 		{
 			//return e_FALSE;
 			//continue;

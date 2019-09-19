@@ -27,7 +27,8 @@
 /******************************************************************************
 *    Global Variable Define Section
 ******************************************************************************/
-
+/*从ato接收的数据缓存通道 */
+UINT8 g_RecvPipeBuffer[25][1400];
 
 /******************************************************************************
 *    Local Macro Define Section
@@ -58,7 +59,9 @@
 E_SysBool Net_SocketInit(const char* ipStr, UINT16 port, UINT32* recvSocketFd, struct sockaddr_in* myAddr)
 {
 	int reFlag = 1;
-
+	struct timeval tv;
+	tv.tv_sec = 0;
+	tv.tv_usec = 10;
 	*recvSocketFd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	memset(myAddr, 0, sizeof(struct sockaddr_in));
 	myAddr->sin_family = AF_INET;
@@ -66,7 +69,15 @@ E_SysBool Net_SocketInit(const char* ipStr, UINT16 port, UINT32* recvSocketFd, s
 	myAddr->sin_port = htons(port);
 
 	/*端口重新使用 */
-	setsockopt(*recvSocketFd, SOL_SOCKET, SO_REUSEADDR, &reFlag, sizeof(int));
+	if (0 != setsockopt(*recvSocketFd, SOL_SOCKET, SO_REUSEADDR, &reFlag, sizeof(int)))
+	{
+		return e_FALSE;
+	}
+	//设置接收超时
+	if (0 !=setsockopt(*recvSocketFd, SOL_SOCKET, SO_RCVTIMEO, (char*)& tv, sizeof(struct timeval)))
+	{
+		return e_FALSE;
+	}
 	if (0 != bind(*recvSocketFd, (struct sockaddr*)myAddr, sizeof(struct sockaddr_in)))
 	{
 		return e_FALSE;
@@ -74,34 +85,61 @@ E_SysBool Net_SocketInit(const char* ipStr, UINT16 port, UINT32* recvSocketFd, s
 	return e_TRUE;
 }
 
-E_SysBool Net_SocketRcv(INT32 recvSocketFd, struct sockaddr_in* addr, char* rcvBuf, INT32 *rcvLen)
+E_SysBool Net_SocketRcv(INT32 recvSocketFd, struct sockaddr_in* pAddr, char* rcvBuf, INT32 *rcvLen)
 {
 	/*只接收指定IP和port的数据 */
 	struct timeval tv;
 	INT32 addrLen = sizeof(struct sockaddr_in);
 	fd_set readfds;
+	struct sockaddr_in addr;
 
-	tv.tv_sec = 1;
+	tv.tv_sec = 0;
 	tv.tv_usec = 100;
 	FD_ZERO(&readfds);
 	FD_SET(recvSocketFd, &readfds);
+	bzero(pAddr, sizeof(struct sockaddr_in));
 
+	/*pAddr->sin_family = AF_INET;
+	pAddr->sin_port = htons(5000);
+	pAddr->sin_addr.s_addr = htonl(INADDR_ANY);*/
 
 	switch(select(recvSocketFd + 1, &readfds, NULL, NULL, &tv))
 	{
 		case -1: 
-			break;
+			return e_FALSE;
 		case 0: 
-			break;
+			return e_TRUE;
 		default:
-			if (FD_ISSET(recvSocketFd, &readfds))/*有可读数据 */
+
+			if(FD_ISSET(recvSocketFd, &readfds))/*有可读数据 */
 			{
-				while ((*rcvLen = recvfrom(recvSocketFd, rcvBuf, 1024, 0, (struct sockaddr*) & addr, (socklen_t*)& addrLen)) >= 0)
+				bzero(rcvBuf, 1400);
+				do
 				{
-					printf("recv %s, ip=%d, port=%d\n", rcvBuf, addr->sin_addr.s_addr, addr->sin_port);
-				}
+					*rcvLen = recvfrom(recvSocketFd, rcvBuf, 1024, 0, (struct sockaddr*) pAddr, (socklen_t*)& addrLen);
+					printf("recv %s, ip=%s, port=%d\n", rcvBuf, inet_ntoa(pAddr->sin_addr), ntohs(pAddr->sin_port));
+				} while (*rcvLen > 0);
 			}
+			return e_TRUE;
 	}
+}
+
+/******************************************************************************
+ *Name    : Net_RcvDataStroe
+ *Function: 网络接收数据缓存在g_RecvPipeBuffer[][]变量中
+ *Para    :  UINT8* rcvBuf
+ *Para    :  UINT32 rcvLen
+ *Return  : 初始化状态，正常返回e_TRUE 异常返回e_FALSE
+ *NOTE    : V1.0.0  Wangjia 	 2019/09/19     create
+******************************************************************************/
+E_SysBool Net_RcvDataStroe(UINT8* rcvBuf, UINT32 rcvLen)
+{
 
 }
+
+UINT8* Get_RecvPipeBuffer()
+{
+	return &g_RecvPipeBuffer;
+}
+
 

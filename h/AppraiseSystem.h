@@ -41,47 +41,46 @@
  ******************************************************************************/
 /******************************************************************************
  *Name    : ACS_DriveAppraise_InitPro
- *Function: º¯Êı³õÊ¼»¯
+ *Function: å‡½æ•°åˆå§‹åŒ–
  *Para    :// S_PLAN_OUTPUTDATA* const pPlanOutputData
- *Return  : ³õÊ¼»¯×´Ì¬£¬Õı³£·µ»Øe_TRUE Òì³£·µ»Øe_FALSE
+ *Return  : åˆå§‹åŒ–çŠ¶æ€ï¼Œæ­£å¸¸è¿”å›e_TRUE å¼‚å¸¸è¿”å›e_FALSE
  *NOTE    : V1.0.0  Tangwei 	 2019/07/02     create
 ******************************************************************************/
 E_SysBool  ACS_DriveAppraise_InitPro(S_ATO2ACS_INPUTPARA* pA2AInputPara,
 									S_ALL_FEEDBACK_GRADE* pAllFeedBackGrade,
 									S_KERNEL_SENSEDATA* pSenseData,
-									S_AUTOINDICATORSCALCRESULT* pAtIndClcRslt,
-									UINT8 Buffer[][1400]);
+									S_AUTOINDICATORSCALCRESULT* pAtIndClcRslt);
 /******************************************************************************
  *Name    : ACS_UDP_RecvData
- *Function: Êı¾İ½ÓÊÕ
+ *Function: æ•°æ®æ¥æ”¶
  *Para    : S_PLAN_OUTPUTDATA* const pPlanOutputData
- *Return  : ³õÊ¼»¯×´Ì¬£¬Õı³£·µ»Øe_TRUE Òì³£·µ»Øe_FALSE
+ *Return  : åˆå§‹åŒ–çŠ¶æ€ï¼Œæ­£å¸¸è¿”å›e_TRUE å¼‚å¸¸è¿”å›e_FALSE
  *NOTE    : V1.0.0  Tangwei 	 2019/07/24      create
 ******************************************************************************/
 E_SysBool  ACS_UDP_RecvData(UINT8 buffer[][1400]);
 /******************************************************************************
  *Name    : ACS_Data_ATO2ACS_Analyze
- *Function: ½âÎöATO·¢¹ıÀ´µÄÊı¾İ
+ *Function: è§£æATOå‘è¿‡æ¥çš„æ•°æ®
  *Para    : S_PLAN_OUTPUTDATA* const pPlanOutputData
- *Return  : ³õÊ¼»¯×´Ì¬£¬Õı³£·µ»Øe_TRUE Òì³£·µ»Øe_FALSE
+ *Return  : åˆå§‹åŒ–çŠ¶æ€ï¼Œæ­£å¸¸è¿”å›e_TRUE å¼‚å¸¸è¿”å›e_FALSE
  *NOTE    : V1.0.0  Tangwei 	 2019/03/14      create
 ******************************************************************************/
 E_SysBool  ACS_Data_ATO2ACS_Analyze(UINT8 Buffer[][1400],
 									S_ATO2ACS_INPUTPARA* pA2AInputPara);
 /******************************************************************************
  *Name    : ACS_DataSense
- *Function: Êı¾İ¸ĞÖªÓë¹æÔò¿âÊ¶±ğ
+ *Function: æ•°æ®æ„ŸçŸ¥ä¸è§„åˆ™åº“è¯†åˆ«
  *Para    : S_PLAN_OUTPUTDATA* const pPlanOutputData
- *Return  : ³õÊ¼»¯×´Ì¬£¬Õı³£·µ»Øe_TRUE Òì³£·µ»Øe_FALSE
+ *Return  : åˆå§‹åŒ–çŠ¶æ€ï¼Œæ­£å¸¸è¿”å›e_TRUE å¼‚å¸¸è¿”å›e_FALSE
  *NOTE    : V1.0.0  Tangwei 	 2019/07/25      create
 ******************************************************************************/
 E_SysBool  ACS_DataSense(const S_ATO2ACS_INPUTPARA*  const pA2AInputPara,
 						 S_KERNEL_SENSEDATA*  const pSenseDataIn);
 /******************************************************************************
  *Name    : ACS_ParaCalc
- *Function: Ö¸±ê¼ÆËã
+ *Function: æŒ‡æ ‡è®¡ç®—
  *Para    : S_PLAN_OUTPUTDATA* const pPlanOutputData
- *Return  : ³õÊ¼»¯×´Ì¬£¬Õı³£·µ»Øe_TRUE Òì³£·µ»Øe_FALSE
+ *Return  : åˆå§‹åŒ–çŠ¶æ€ï¼Œæ­£å¸¸è¿”å›e_TRUE å¼‚å¸¸è¿”å›e_FALSE
  *NOTE    : V1.0.0  Tangwei 	 2019/07/24      create
 ******************************************************************************/
 E_SysBool  ACS_ParaCalc(S_ATO2ACS_INPUTPARA* pA2AInputPara,
@@ -89,18 +88,18 @@ E_SysBool  ACS_ParaCalc(S_ATO2ACS_INPUTPARA* pA2AInputPara,
 						S_KERNEL_SENSEDATA*   pSenseData);
 /******************************************************************************
  *Name    : ACS_CalcResultStoreAndRead
- *Function: ¼ÆËã½á¹û´æÈ¡
+ *Function: è®¡ç®—ç»“æœå­˜å–
  *Para    : S_PLAN_OUTPUTDATA* const pPlanOutputData
- *Return  : ³õÊ¼»¯×´Ì¬£¬Õı³£·µ»Øe_TRUE Òì³£·µ»Øe_FALSE
+ *Return  : åˆå§‹åŒ–çŠ¶æ€ï¼Œæ­£å¸¸è¿”å›e_TRUE å¼‚å¸¸è¿”å›e_FALSE
  *NOTE    : V1.0.0  Tangwei 	 2019/07/24      create
 ******************************************************************************/
 E_SysBool  ACS_CalcResultStoreAndRead(S_AUTOINDICATORSCALCRESULT* pAtIndClcRslt,
 									S_ALL_FEEDBACK_GRADE* pAllFeedBackGrade);
 /******************************************************************************
  *Name    : ACS_DriveAppraise
- *Function: ÆÀ·Ö
+ *Function: è¯„åˆ†
  *Para    : S_PLAN_OUTPUTDATA* con[]st pPlanOutputData
- *Return  : ³õÊ¼»¯×´Ì¬£¬Õı³£·µ»Øe_TRUE Òì³£·µ»Øe_FALSE
+ *Return  : åˆå§‹åŒ–çŠ¶æ€ï¼Œæ­£å¸¸è¿”å›e_TRUE å¼‚å¸¸è¿”å›e_FALSE
  *NOTE    : V1.0.0  Tangwei 	 2019/07/14      create
 ******************************************************************************/
 E_SysBool  ACS_DriveAppraise(S_AUTOINDICATORSCALCRESULT* pAtIndClcRslt,
@@ -108,18 +107,18 @@ E_SysBool  ACS_DriveAppraise(S_AUTOINDICATORSCALCRESULT* pAtIndClcRslt,
 
 /******************************************************************************
  *Name    : ACS_Data_Feedback
- *Function: Êı¾İ·´À¡
+ *Function: æ•°æ®åé¦ˆ
  *Para    : S_PLAN_OUTPUTDATA* const pPlanOutputData
- *Return  : ³õÊ¼»¯×´Ì¬£¬Õı³£·µ»Øe_TRUE Òì³£·µ»Øe_FALSE
+ *Return  : åˆå§‹åŒ–çŠ¶æ€ï¼Œæ­£å¸¸è¿”å›e_TRUE å¼‚å¸¸è¿”å›e_FALSE
  *NOTE    : V1.0.0  Tangwei 	 2019/07/02      create
 ******************************************************************************/
 E_SysBool  ACS_Data_Feedback2ATO(S_ALL_FEEDBACK_GRADE* pAllFeedBackGrade);
 
 /******************************************************************************
  *Name    : ACS_DriveAppraise_Main
- *Function: Ö÷º¯Êı
+ *Function: ä¸»å‡½æ•°
  *Para    : S_PLAN_OUTPUTDATA* const pPlanOutputData
- *Return  : ³õÊ¼»¯×´Ì¬£¬Õı³£·µ»Øe_TRUE Òì³£·µ»Øe_FALSE
+ *Return  : åˆå§‹åŒ–çŠ¶æ€ï¼Œæ­£å¸¸è¿”å›e_TRUE å¼‚å¸¸è¿”å›e_FALSE
  *NOTE    : V1.0.0  Tangwei 	 2019/07/02      create
 ******************************************************************************/
 E_SysBool  ACS_DriveAppraise_Main();

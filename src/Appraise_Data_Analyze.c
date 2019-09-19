@@ -39,9 +39,9 @@
 
 /******************************************************************************
  *Name    : ACS_Data_pipe0_Analyze
- *Function: ½âÎö¹ÜµÀ0µÄÊı¾İ
+ *Function: è§£æç®¡é“0çš„æ•°æ®
  *Para    : S_PLAN_OUTPUTDATA* const pPlanOutputData
- *Return  : ³õÊ¼»¯×´Ì¬£¬Õı³£·µ»Øe_TRUE Òì³£·µ»Øe_FALSE
+ *Return  : åˆå§‹åŒ–çŠ¶æ€ï¼Œæ­£å¸¸è¿”å›e_TRUE å¼‚å¸¸è¿”å›e_FALSE
  *NOTE    : V1.0.0  Tangwei 	 2019/08/05      create
 ******************************************************************************/
 E_SysBool  ACS_Data_pipe0_Analyze(UINT8* Pipe0,
@@ -49,7 +49,7 @@ E_SysBool  ACS_Data_pipe0_Analyze(UINT8* Pipe0,
 {
 
 	UINT16 PipeIndex = 0;
-/*Ìõ¼şÅĞ¶Ï*/
+/*æ¡ä»¶åˆ¤æ–­*/
 #if 0
 	UINT16 i=0;
 	for(i=0;i<1400;i++)
@@ -60,8 +60,8 @@ printf("%d ",Pipe0[i]);
 
 
 	PipeIndex = 35;
-/*Êı¾İ½âÎö*/
-	/*»ú³µÃüÁî¼°×´Ì¬-CCU+BCU*/
+/*æ•°æ®è§£æ*/
+	/*æœºè½¦å‘½ä»¤åŠçŠ¶æ€-CCU+BCU*/
 	pA2AInputPara->DynaData.LocoDynCMDandStatus.ATOFlag					
 				= Pipe0[PipeIndex];
 	
@@ -226,7 +226,7 @@ printf("%d ",Pipe0[i]);
 							   Pipe0[PipeIndex+1],
 							   Pipe0[PipeIndex+2],
 							   Pipe0[PipeIndex+3]);
-	/*LKJ¶¯Ì¬¿ØÖÆÊı¾İ*/
+	/*LKJåŠ¨æ€æ§åˆ¶æ•°æ®*/
 	//pA2AInputPara->DynaData.LKJDynamicCtlData.Singal = &Pipe[117];
 	PipeIndex = 117;
 	PipeIndex = PipeIndex + 1;
@@ -290,7 +290,7 @@ printf("%d ",Pipe0[i]);
 	PipeIndex = PipeIndex + 1;
 	pA2AInputPara->DynaData.LKJDynamicCtlData.NextBranch 	  = Pipe0[PipeIndex]; //144
 	
-	/*¹ı·ÖÏàĞÅºÅ*/
+	/*è¿‡åˆ†ç›¸ä¿¡å·*/
 	PipeIndex = 156;
 	pA2AInputPara->DynaData.NeutralSignal.NeutralForetellFlag = Pipe0[PipeIndex];
 	
@@ -304,7 +304,7 @@ printf("%d ",Pipe0[i]);
 	pA2AInputPara->DynaData.NeutralSignal.LocoInNeutral 	  = Pipe0[PipeIndex];
 	
 	
-	/*¿ØÖÆÖ¸Áî*///160
+	/*æ§åˆ¶æŒ‡ä»¤*///160
 	PipeIndex = 160;
 	pA2AInputPara->CtrlData.AlgoOutputCtlData.RunningStatus   = Pipe0[PipeIndex];
 	
@@ -355,7 +355,7 @@ printf("%d ",Pipe0[i]);
 								Pipe0[PipeIndex+3]);
 	
 		
-		/* ¹æ»®ÇúÏß*//*??????????????????*/
+		/* è§„åˆ’æ›²çº¿*//*??????????????????*/
 	PipeIndex =180;
 	pA2AInputPara->CtrlData.AlgoOutputTargetLine.UpDataLife
 			= Comn_F_GetUINT32(Pipe0[PipeIndex],
@@ -386,9 +386,9 @@ printf("%d ",Pipe0[i]);
 	pA2AInputPara->CtrlData.AlgoOutputTargetLine.TragetF[0]
 		    = Comn_F_GetUINT16(Pipe0[PipeIndex],Pipe0[PipeIndex+1]);
 	
-	/*Ëã·¨Èí¼ş°æ±¾Î´Ìí¼Ó*/
+	/*ç®—æ³•è½¯ä»¶ç‰ˆæœ¬æœªæ·»åŠ */
 	
-	/*Ëã·¨ÔËĞĞ×´Ì¬Êä³ö*/
+	/*ç®—æ³•è¿è¡ŒçŠ¶æ€è¾“å‡º*/
 	PipeIndex = 199;
 	pA2AInputPara->CtrlData.AlgoOutputStaData.AlgoAutoQuitReqCode 
 			= Comn_F_GetUINT32(Pipe0[PipeIndex],
@@ -404,7 +404,7 @@ printf("%d ",Pipe0[i]);
 								Pipe0[PipeIndex+3]);
 	
 
-	/*ºÄµçÁ¿*/
+	/*è€—ç”µé‡*/
 	PipeIndex = 594;
 	pA2AInputPara->SpecialData.LocoElectrical.ConsumeElectrical = 
 			Comn_F_GetUINT32(Pipe0[PipeIndex],
@@ -424,9 +424,9 @@ printf("%d ",Pipe0[i]);
 }
 /******************************************************************************
  *Name    : ACS_Data_pipe1_Analyze
- *Function: ½âÎö¹ÜµÀ1µÄÊı¾İ
+ *Function: è§£æç®¡é“1çš„æ•°æ®
  *Para    : S_PLAN_OUTPUTDATA* const pPlanOutputData
- *Return  : ³õÊ¼»¯×´Ì¬£¬Õı³£·µ»Øe_TRUE Òì³£·µ»Øe_FALSE
+ *Return  : åˆå§‹åŒ–çŠ¶æ€ï¼Œæ­£å¸¸è¿”å›e_TRUE å¼‚å¸¸è¿”å›e_FALSE
  *NOTE    : V1.0.0  Tangwei 	 2019/08/05      create
 ******************************************************************************/
 E_SysBool  ACS_Data_pipe1_Analyze(UINT8* Pipe1,
@@ -435,7 +435,7 @@ E_SysBool  ACS_Data_pipe1_Analyze(UINT8* Pipe1,
 	UINT16 PipeIndex = 0;
 	UINT16 LimSpdCrvIndex = 0;
 	
-	/*¶¯Ì¬·À»¤ÇúÏß*/
+	/*åŠ¨æ€é˜²æŠ¤æ›²çº¿*/
 	PipeIndex += 16;
 	for(LimSpdCrvIndex = 0; LimSpdCrvIndex < ALGO_LIMIT_SPEED_NUM_MAX; LimSpdCrvIndex++)
 	{
@@ -446,9 +446,9 @@ E_SysBool  ACS_Data_pipe1_Analyze(UINT8* Pipe1,
 }
 /******************************************************************************
  *Name    : ACS_Data_pipe2_Analyze
- *Function: ½âÎö¹ÜµÀ2µÄÊı¾İ
+ *Function: è§£æç®¡é“2çš„æ•°æ®
  *Para    : S_PLAN_OUTPUTDATA* const pPlanOutputData
- *Return  : ³õÊ¼»¯×´Ì¬£¬Õı³£·µ»Øe_TRUE Òì³£·µ»Øe_FALSE
+ *Return  : åˆå§‹åŒ–çŠ¶æ€ï¼Œæ­£å¸¸è¿”å›e_TRUE å¼‚å¸¸è¿”å›e_FALSE
  *NOTE    : V1.0.0  Tangwei 	 2019/08/05      create
 ******************************************************************************/
 E_SysBool  ACS_Data_pipe2_Analyze(UINT8* Pipe2,
@@ -458,7 +458,7 @@ E_SysBool  ACS_Data_pipe2_Analyze(UINT8* Pipe2,
 	UINT16 VaildNum  = 0;
 	UINT16 Index 	 = 0;
 	
-	/*¹æ»®ÇúÏßÊä³ö-¹æ»®µã¹¤¿ö,ËÙ¶È,Ïà¶Ô¾àÀë*/
+	/*è§„åˆ’æ›²çº¿è¾“å‡º-è§„åˆ’ç‚¹å·¥å†µ,é€Ÿåº¦,ç›¸å¯¹è·ç¦»*/
 	PipeIndex =16;
 	pA2AInputPara->CtrlData.AlgoOutputTargetLine.ValidNum 
 			= Comn_F_GetUINT16(Pipe2[PipeIndex],Pipe2[PipeIndex+1]);
@@ -502,9 +502,9 @@ E_SysBool  ACS_Data_pipe2_Analyze(UINT8* Pipe2,
 }
 /******************************************************************************
  *Name    : ACS_Data_pipe3_Analyze
- *Function: ½âÎö¹ÜµÀ3µÄÊı¾İ
+ *Function: è§£æç®¡é“3çš„æ•°æ®
  *Para    : S_PLAN_OUTPUTDATA* const pPlanOutputData
- *Return  : ³õÊ¼»¯×´Ì¬£¬Õı³£·µ»Øe_TRUE Òì³£·µ»Øe_FALSE
+ *Return  : åˆå§‹åŒ–çŠ¶æ€ï¼Œæ­£å¸¸è¿”å›e_TRUE å¼‚å¸¸è¿”å›e_FALSE
  *NOTE    : V1.0.0  Tangwei 	 2019/08/05      create
 ******************************************************************************/
 E_SysBool  ACS_Data_pipe3_Analyze(UINT8 *Pipe3,
@@ -514,7 +514,7 @@ E_SysBool  ACS_Data_pipe3_Analyze(UINT8 *Pipe3,
 	UINT16 VaildNum  = 0;
 	UINT16 Index 	 = 0;
 	
-	/*¹æ»®ÇúÏßÊä³ö-¹æ»®µã¹¤¿öºÍËÙ¶È*/
+	/*è§„åˆ’æ›²çº¿è¾“å‡º-è§„åˆ’ç‚¹å·¥å†µå’Œé€Ÿåº¦*/
 	PipeIndex =16;
 	pA2AInputPara->CtrlData.AlgoOutputTargetLine.ValidNum 
 			= Comn_F_GetUINT16(Pipe3[PipeIndex],Pipe3[PipeIndex+1]);
@@ -554,9 +554,9 @@ E_SysBool  ACS_Data_pipe3_Analyze(UINT8 *Pipe3,
 }
 /******************************************************************************
  *Name    : ACS_Data_pipe4_Analyze
- *Function: ½âÎö¹ÜµÀ4µÄÊı¾İ
+ *Function: è§£æç®¡é“4çš„æ•°æ®
  *Para    : S_PLAN_OUTPUTDATA* const pPlanOutputData
- *Return  : ³õÊ¼»¯×´Ì¬£¬Õı³£·µ»Øe_TRUE Òì³£·µ»Øe_FALSE
+ *Return  : åˆå§‹åŒ–çŠ¶æ€ï¼Œæ­£å¸¸è¿”å›e_TRUE å¼‚å¸¸è¿”å›e_FALSE
  *NOTE    : V1.0.0  Tangwei 	 2019/08/05      create
 ******************************************************************************/
 E_SysBool  ACS_Data_pipe4_Analyze(UINT8 *Pipe4,
@@ -600,9 +600,9 @@ E_SysBool  ACS_Data_pipe4_Analyze(UINT8 *Pipe4,
 }
 /******************************************************************************
  *Name    : ACS_Data_pipe5_Analyze
- *Function: ½âÎö¹ÜµÀ5µÄÊı¾İ
+ *Function: è§£æç®¡é“5çš„æ•°æ®
  *Para    : S_PLAN_OUTPUTDATA* const pPlanOutputData
- *Return  : ³õÊ¼»¯×´Ì¬£¬Õı³£·µ»Øe_TRUE Òì³£·µ»Øe_FALSE
+ *Return  : åˆå§‹åŒ–çŠ¶æ€ï¼Œæ­£å¸¸è¿”å›e_TRUE å¼‚å¸¸è¿”å›e_FALSE
  *NOTE    : V1.0.0  Tangwei 	 2019/08/05      create
 ******************************************************************************/
 E_SysBool  ACS_Data_pipe5_Analyze(UINT8 *Pipe5,
@@ -613,9 +613,9 @@ E_SysBool  ACS_Data_pipe5_Analyze(UINT8 *Pipe5,
 }
 /******************************************************************************
  *Name    : ACS_Data_pipe6_Analyze
- *Function: ½âÎö¹ÜµÀ6µÄÊı¾İ
+ *Function: è§£æç®¡é“6çš„æ•°æ®
  *Para    : S_PLAN_OUTPUTDATA* const pPlanOutputData
- *Return  : ³õÊ¼»¯×´Ì¬£¬Õı³£·µ»Øe_TRUE Òì³£·µ»Øe_FALSE
+ *Return  : åˆå§‹åŒ–çŠ¶æ€ï¼Œæ­£å¸¸è¿”å›e_TRUE å¼‚å¸¸è¿”å›e_FALSE
  *NOTE    : V1.0.0  Tangwei 	 2019/08/05      create
 ******************************************************************************/
 E_SysBool  ACS_Data_pipe6_Analyze(UINT8 *Pipe6,
@@ -624,7 +624,7 @@ E_SysBool  ACS_Data_pipe6_Analyze(UINT8 *Pipe6,
 	UINT16 PipeIndex = 0;
 	UINT16 VaildNum  = 0;
 	UINT16 Index 	 = 0;
-	/*°´lkj15½âÎö*/
+	/*æŒ‰lkj15è§£æ*/
 	PipeIndex = 23; 
 	pA2AInputPara->BasicData.ForwardRailLineData.FWSignalInfo.SignalNum = Pipe6[PipeIndex];
 	
@@ -758,14 +758,14 @@ E_SysBool  ACS_Data_pipe6_Analyze(UINT8 *Pipe6,
 		PipeIndex +=4;
 	}
 	
-	/*²Î¿¼ÇúÏßÎ´½âÎö*/
+	/*å‚è€ƒæ›²çº¿æœªè§£æ*/
 	return e_TRUE; 
 }
 /******************************************************************************
  *Name    : ACS_Data_pipe7_Analyze
- *Function: ½âÎö¹ÜµÀ7µÄÊı¾İ
+ *Function: è§£æç®¡é“7çš„æ•°æ®
  *Para    : S_PLAN_OUTPUTDATA* const pPlanOutputData
- *Return  : ³õÊ¼»¯×´Ì¬£¬Õı³£·µ»Øe_TRUE Òì³£·µ»Øe_FALSE
+ *Return  : åˆå§‹åŒ–çŠ¶æ€ï¼Œæ­£å¸¸è¿”å›e_TRUE å¼‚å¸¸è¿”å›e_FALSE
  *NOTE    : V1.0.0  Tangwei 	 2019/08/05      create
 ******************************************************************************/
 E_SysBool  ACS_Data_pipe7_Analyze(UINT8 *Pipe7,
@@ -1173,7 +1173,7 @@ E_SysBool  ACS_Data_pipe7_Analyze(UINT8 *Pipe7,
 				Comn_F_GetUINT16(Pipe7[PipeIndex],Pipe7[PipeIndex+1]);
 		PipeIndex += 2;
 	}
-	/*Ê±¼ä´Á*/
+	/*æ—¶é—´æˆ³*/
 	PipeIndex = 809;
 	pA2AInputPara->SpecialData.TimeDate.Year_TimeDate.Year    = Pipe7[PipeIndex];
 	PipeIndex += 1;
@@ -1193,7 +1193,7 @@ E_SysBool  ACS_Data_pipe7_Analyze(UINT8 *Pipe7,
 	pA2AInputPara->SpecialData.TimeDate.Year_TimeDate.Second  = Pipe7[PipeIndex];
 	PipeIndex += 1;
 
-		/*Ê±¼ä´Á¼ÆËã*/
+		/*æ—¶é—´æˆ³è®¡ç®—*/
 	Comn_F_Date2Stamp(&(pA2AInputPara->SpecialData.TimeDate.Year_TimeDate)
 					,&(pA2AInputPara->SpecialData.TimeDate.SecondTime));
 
